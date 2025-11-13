@@ -1,0 +1,6 @@
+@Runner.API_HostAddress = http://localhost:5029
+
+GET {{Runner.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
