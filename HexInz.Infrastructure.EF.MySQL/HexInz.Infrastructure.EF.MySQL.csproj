@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>HexInz.Adapter.EntityFramework.MySQL</RootNamespace>
+
+        <!-- 
+        This property forces MSBuild to copy all assemblies from this project's dependency graph (including NuGet packages like Pomelo) into 
+        the output directory (e.g., bin/Debug/net9.0) on a normal build.
+        This ensures that when this module is loaded as a plugin, all its dependencies are present in the same directory, which is what 
+        the AssemblyDependencyResolver requires to function correctly.
+        -->
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0"/>
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\HexInz.Ports\HexInz.Ports.csproj"/>
+        <ProjectReference Include="..\HexInz.Infrastructure.Core\HexInz.Infrastructure.Core.csproj"/>
+    </ItemGroup>
+
+</Project>
