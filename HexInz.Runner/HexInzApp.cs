@@ -1,4 +1,4 @@
-using Infrastructure.Core.ModulesManager;
+using HexInz.Infrastructure.Core.ModulesManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

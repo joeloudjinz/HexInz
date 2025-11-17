@@ -1,7 +1,7 @@
 using System.Reflection;
-using Infrastructure.Core.SystemConsoleLogger;
+using HexInz.Infrastructure.Core.SystemConsoleLogger;
 
-namespace Infrastructure.Core.ModulesManager;
+namespace HexInz.Infrastructure.Core.ModulesManager;
 
 internal static class ModuleLoader
 {

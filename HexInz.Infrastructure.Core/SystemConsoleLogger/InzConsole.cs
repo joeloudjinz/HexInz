@@ -1,4 +1,4 @@
-namespace Infrastructure.Core.SystemConsoleLogger;
+namespace HexInz.Infrastructure.Core.SystemConsoleLogger;
 
 public static class InzConsole
 {

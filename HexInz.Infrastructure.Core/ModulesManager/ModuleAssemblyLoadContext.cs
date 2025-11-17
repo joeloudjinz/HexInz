@@ -1,8 +1,8 @@
 using System.Reflection;
 using System.Runtime.Loader;
-using Infrastructure.Core.SystemConsoleLogger;
+using HexInz.Infrastructure.Core.SystemConsoleLogger;
 
-namespace Infrastructure.Core.ModulesManager;
+namespace HexInz.Infrastructure.Core.ModulesManager;
 
 internal sealed class ModuleAssemblyLoadContext(string modulePath) : AssemblyLoadContext(isCollectible: true)
 {

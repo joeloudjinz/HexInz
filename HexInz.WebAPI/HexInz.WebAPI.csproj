@@ -5,15 +5,16 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>HexInz.Adapter.WebAPI</RootNamespace>
-    </PropertyGroup>
+      <UserSecretsId>6c4653f1-ba6f-4c98-8ab4-a061b1fd3ff5</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\HexInz.Runner\HexInz.Runner.csproj"/>
+        <ProjectReference Include="..\HexInz.Runner\HexInz.Runner.csproj" />
     </ItemGroup>
     
 </Project>

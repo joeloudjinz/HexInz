@@ -1,4 +1,4 @@
-namespace Infrastructure.Core;
+namespace HexInz.Infrastructure.Core;
 
 public static class Constants
 {

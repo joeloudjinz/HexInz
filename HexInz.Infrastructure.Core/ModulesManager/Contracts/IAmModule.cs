@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Core.ModulesManager.Contracts;
+namespace HexInz.Infrastructure.Core.ModulesManager.Contracts;
 
 public interface IAmModule
 {

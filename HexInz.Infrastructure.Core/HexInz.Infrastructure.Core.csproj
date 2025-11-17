@@ -5,7 +5,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Infrastructure.Core</RootNamespace>
+        <RootNamespace>HexInz.Infrastructure.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
