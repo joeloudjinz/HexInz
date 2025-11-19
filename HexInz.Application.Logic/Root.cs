@@ -1,22 +1,21 @@
-﻿using HexInz.Application.Contracts.Ports;
-using HexInz.Infrastructure.Core.Persistence;
-using HexInz.ModuleManager;
+﻿using HexInz.ModuleManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HexInz.Infrastructure.Core;
+namespace HexInz.Core.Application;
 
-public class CoreInfrastructureModule : IAmModule
+public class ApplicationLogicModule: IAmModule
 {
     public IServiceCollection RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        // If this module depends on MediatR (a hard dependency), it can be registered here
+        // Command and query handlers can be registered into the DI from here
         return services;
     }
 
     public IServiceProvider InitializeServices(IServiceProvider services, IConfiguration configuration)
     {
-        Console.WriteLine("Initializing Infrastructure Core Module");
+        // If this module depends on MediatR (a hard dependency), it can be initialized here
         return services;
     }
 }

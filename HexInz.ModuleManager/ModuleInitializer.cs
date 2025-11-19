@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace HexInz.Infrastructure.Core.ModulesManager;
+namespace HexInz.ModuleManager;
 
 internal static class ModuleInitializer
 {

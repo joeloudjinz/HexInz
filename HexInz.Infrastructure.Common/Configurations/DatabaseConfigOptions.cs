@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace HexInz.Infrastructure.Core.Configurations;
+namespace HexInz.Infrastructure.Common.Configurations;
 
 public class DatabaseConfigOptions
 {

@@ -1,4 +1,4 @@
-namespace HexInz.Core.Ports;
+namespace HexInz.Application.Contracts.Ports;
 
 public interface IDataContext
 {

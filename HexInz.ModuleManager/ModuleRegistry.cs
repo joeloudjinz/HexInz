@@ -1,8 +1,7 @@
 using System.Reflection;
-using HexInz.Infrastructure.Core.ModulesManager.Contracts;
 using HexInz.Infrastructure.Core.SystemConsoleLogger;
 
-namespace HexInz.Infrastructure.Core.ModulesManager;
+namespace HexInz.ModuleManager;
 
 internal static class ModuleRegistry
 {
@@ -24,8 +23,10 @@ internal static class ModuleRegistry
         {
             InzConsole.FirstLevelItem($"Assembly: [{key}]");
             var types = assembly.GetTypes()
-                .Where(t => t.GetInterfaces().Contains(typeof(IAmModule)) && t is { IsInterface: false, IsAbstract: false })
-                .ToList();
+                .Where(t =>
+                    t.GetInterfaces().Any(ti => ti.FullName!.Equals(typeof(IAmModule).FullName)) &&
+                    t is { IsInterface: false, IsAbstract: false }
+                ).ToList();
             if (types.Count == 0)
             {
                 InzConsole.WarningWithNewLine($"No IAmModule implementation found in assembly [{key}]");

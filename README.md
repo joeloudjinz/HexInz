@@ -1,6 +1,6 @@
 # HexInz
 
-HexInz is a modular .NET 9.0 application built on hexagonal architecture principles with runtime module loading capabilities. It provides a flexible plugin-based architecture that allows infrastructure adapters to be loaded dynamically at runtime, enabling database-agnostic implementations and runtime configuration of data persistence mechanisms.
+HexInz is a modular .NET 9.0 application built on hexagonal architecture and Domain-Driven Design (DDD) principles. It features robust dynamic module loading capabilities that enable infrastructure adapters to be loaded at runtime, ensuring complete separation of concerns and module isolation while maintaining clean architecture boundaries.
 
 ## Table of Contents
 - [Architecture](#architecture)
@@ -14,116 +14,116 @@ HexInz is a modular .NET 9.0 application built on hexagonal architecture princip
 
 ## Architecture
 
-The solution implements a hexagonal (ports and adapters) architecture with the following layers:
+The solution implements a hexagonal (ports and adapters) architecture with the following components:
 
 ### Domain Layer
 - **HexInz.Domain**: Contains core business logic and domain models
-- Houses the primary business entities and logic independent of external concerns
-- Represents the core business domain without any infrastructure dependencies
 
 ### Application Layer
-- **HexInz.Application**: Contains use cases and application services that orchestrate domain logic
-- Defines application-specific business rules and workflows
-- Acts as an intermediary between the domain and the infrastructure layers
-
-### Ports Layer (Abstractions)
-- **HexInz.Ports**: Defines abstractions and contracts (ports) that the domain layer depends on
-- Key interface: `IDataContext` for data persistence abstraction
-- Ensures domain independence from specific infrastructure implementations
-- Follows the Dependency Inversion Principle by having domain depend on abstractions
+- **HexInz.Application.Contracts**: Contains application contracts, interfaces, and ports that define abstractions the domain layer depends on
+- **HexInz.Application.Logic**: Contains application services and business logic orchestration
 
 ### Infrastructure Layer
-- **HexInz.Infrastructure.Core**: Core framework with module loading capabilities
+- **HexInz.Runner**: Provides application orchestration and startup logic with service registration and initialization extensions for module management
+- **HexInz.ModuleManager**: Contains module loading, registry, and initialization functionality
+- **HexInz.Infrastructure.Common**: Contains common infrastructure contracts, interfaces, and configuration management
+- **HexInz.Infrastructure.Core**: Contains core infrastructure components and persistence abstractions
 - **HexInz.Infrastructure.EF.MySQL**: MySQL Entity Framework adapter implementation
-- **HexInz.Infrastructure.EF.SQLServer**: SQL Server Entity Framework adapter implementation
-
-#### Infrastructure Core Components
-- **Module Assembly Loading Context**: Custom `AssemblyLoadContext` for dynamic module loading
-- **Module Registry**: Manages loaded assemblies and module definitions
-- **Module Initializer**: Handles post-registration module initialization
-- **Configuration Management**: Handles configuration binding for database and other settings
+- **HexInz.Infrastructure.EF.PostgreSQL**: PostgreSQL Entity Framework adapter implementation
 
 ## Project Structure
 
 ```
 HexInz/
+├── Documentations/                   # Documentation files
+├── HexInz.Application.Contracts/     # Application contracts and ports
+│   ├── HexInz.Application.Contracts.csproj # Application contracts project file
+│   ├── Root.cs                       # Namespace root (empty file)
+│   └── Ports/                        # Application-specific ports with IDataContext and IUnitOfWork
+│       ├── IDataContext.cs           # Data context abstraction interface
+│       └── IUnitOfWork.cs            # Unit of work pattern interface
+├── HexInz.Application.Logic/         # Application logic layer (business logic orchestration)
+│   ├── HexInz.Application.Logic.csproj # Application logic project file
+│   └── Root.cs                       # Namespace root (empty file)
 ├── HexInz.Domain/                    # Domain layer with business logic
 │   ├── HexInz.Domain.csproj          # Domain project file
-│   └── Root.cs                       # Namespace root (empty file)
-├── HexInz.Application/              # Application layer with use cases
-│   ├── HexInz.Application.csproj     # Application project file
-│   └── Root.cs                       # Namespace root (empty file)
-├── HexInz.Ports/                    # Ports (abstractions) for the domain
-│   ├── HexInz.Ports.csproj           # Ports project file
-│   ├── IDataContext.cs               # Data context abstraction
-│   └── Root.cs                       # Namespace root (empty file)
-├── HexInz.Infrastructure.Core/      # Core infrastructure framework
-│   ├── Constants.cs                  # Configuration constants
+│   ├── README.md                     # Domain layer documentation
+│   ├── Root.cs                       # Namespace root (empty file)
+│   ├── Circulation/                  # Circulation domain components
+│   ├── Common/                       # Common domain components
+│   ├── Inventory/                    # Inventory domain components
+│   └── Memberships/                  # Memberships domain components
+├── HexInz.Domain.UnitTests/          # Unit tests for domain layer
+│   ├── HexInz.Domain.UnitTests.csproj # Unit test project file
+│   ├── Circulation/                  # Unit tests for circulation
+│   ├── Common/                       # Unit tests for common components
+│   ├── Inventory/                    # Unit tests for inventory
+│   └── Memberships/                  # Unit tests for memberships
+├── HexInz.Infrastructure.Common/     # Common infrastructure contracts
+│   ├── HexInz.Infrastructure.Common.csproj # Common infrastructure project file
+│   └── Docs/                         # Documentation for common infrastructure
+├── HexInz.Infrastructure.Core/       # Core infrastructure framework (minimal implementation)
 │   ├── HexInz.Infrastructure.Core.csproj # Core infrastructure project file
 │   ├── Root.cs                       # Namespace root (empty file)
-│   ├── Configurations/               # Configuration classes
-│   │   └── DatabaseConfigOptions.cs  # Database configuration options
-│   ├── ModulesManager/              # Module management system
-│   │   ├── Contracts/               # Module interface contracts
-│   │   │   └── IAmModule.cs          # Module interface contract
-│   │   ├── ModuleAssemblyLoadContext.cs # Custom assembly loader
-│   │   ├── ModuleInitializer.cs      # Module initialization logic
-│   │   ├── ModuleLoader.cs           # Module loading logic
-│   │   ├── ModuleManagerExtensions.cs # Service collection extensions
-│   │   └── ModuleRegistry.cs         # Module registry management
-│   └── SystemConsoleLogger/         # Custom console logging
-│       └── InzConsole.cs             # Structured console output
-├── HexInz.Infrastructure.EF.MySQL/  # MySQL Entity Framework adapter
+│   └── Persistence/                  # Persistence abstractions
+├── HexInz.Infrastructure.EF.MySQL/   # MySQL Entity Framework adapter
 │   ├── HexInz.Infrastructure.EF.MySQL.csproj # MySQL adapter project file
-│   ├── EntityFrameworkMySqlModule.cs # MySQL module implementation
 │   ├── MySqlDataContext.cs           # MySQL-specific data context
 │   └── Root.cs                       # Namespace root (empty file)
-├── HexInz.Infrastructure.EF.SQLServer/ # SQL Server Entity Framework adapter
-│   ├── HexInz.Infrastructure.EF.SQLServer.csproj # SQL Server adapter project file
+├── HexInz.Infrastructure.EF.PostgreSQL/ # PostgreSQL Entity Framework adapter
+│   ├── HexInz.Infrastructure.EF.PostgreSQL.csproj # PostgreSQL adapter project file
 │   └── Root.cs                       # Namespace root (empty file)
-├── HexInz.Runner/                   # Application orchestration and startup
+├── HexInz.ModuleManager/             # Module management system
+│   ├── HexInz.ModuleManager.csproj   # Module manager project file
+│   ├── Constants.cs                  # Configuration constants
+│   ├── IAmModule.cs                  # Core module interface definition
+│   ├── InzConsole.cs                 # Custom console logging system
+│   ├── ModuleAssemblyLoadContext.cs  # Custom assembly loading context
+│   ├── ModuleInitializer.cs          # Module initialization logic
+│   ├── ModuleLoader.cs               # Module loading implementation
+│   ├── ModuleManagerExtensions.cs    # Module manager extensions
+│   └── ModuleRegistry.cs             # Module registry implementation
+├── HexInz.Runner/                    # Application orchestration and startup
 │   ├── HexInz.Runner.csproj          # Runner project file
 │   └── HexInzApp.cs                  # Application building and initialization
-├── HexInz.WebAPI/                   # Main web API entry point
+├── HexInz.WebAPI/                    # Main web API entry point
 │   ├── HexInz.WebAPI.csproj          # Web API project file
 │   ├── Program.cs                    # Web API startup logic
 │   ├── appsettings.json              # Configuration settings
-│   └── appsettings.Development.json  # Development-specific settings
+│   ├── appsettings.Development.json  # Development-specific settings
+│   └── Properties/                   # Project properties
+├── .gitignore                        # Git ignore file
+├── Directory.Build.targets           # MSBuild customizations applied to all projects
+├── Directory.Packages.props          # Centralized NuGet package version management
 ├── HexInz.sln                        # Visual Studio solution file
 └── README.md                         # This documentation file
 ```
 
+## Documentations Directory
+
+The `Documentations/` directory is intended for project documentation files, including architecture diagrams, design documents, API documentation, and other technical documentation. Currently, this directory is empty but is reserved for future documentation needs.
+
 ## Module System
-
-### Dynamic Module Loading
-- Plugin-based architecture with runtime loading of modules
-- Uses `AssemblyLoadContext` for module isolation and dependency management
-- Configuration-driven module loading from `appsettings.json`
-- Supports module-specific dependency resolution through `.deps.json` files
-
-### Module Architecture
-- Modules implement the `IAmModule` interface to register services and initialization logic
-- Automatic service registration with dependency injection container
-- Support for module initialization after service registration
-- Each module can provide its own implementation of ports
+- Robust plugin-based architecture with runtime loading of modules ensuring complete isolation
+- Configuration-driven module loading from `appsettings.json` with dynamic dependency resolution
+- Dedicated module management system in HexInz.ModuleManager project for proper lifecycle management
+- Modules implement the `IAmModule` interface to register services with dependency injection container
+- Support for module initialization after service registration ensuring proper startup sequence
+- Each module maintains clear separation of concerns and can provide its own infrastructure implementations
 
 ### IAmModule Interface
 ```csharp
+namespace HexInz.ModuleManager;
+
 public interface IAmModule
 {
-    void RegisterServices(IServiceCollection services, IConfiguration configuration);
-    void InitializeServices(IServiceProvider services, IConfiguration configuration);
+    IServiceCollection RegisterServices(IServiceCollection services, IConfiguration configuration);
+    IServiceProvider InitializeServices(IServiceProvider services, IConfiguration configuration);
 }
 ```
 
 Modules must implement this interface to participate in the dependency injection and initialization lifecycle.
 
-### Assembly Loading Context
-The `ModuleAssemblyLoadContext` handles:
-- Loading assemblies from specific paths at runtime
-- Proper dependency resolution using `AssemblyDependencyResolver`
-- Sharing common dependencies with the host application
-- Preventing duplicate assembly loading in memory
 
 ## Configuration
 
@@ -132,9 +132,12 @@ The application uses configuration to specify which modules to load:
 ```json
 {
   "Modules": [
+    "HexInz.Runner",
+    "HexInz.ModuleManager",
     "HexInz.Domain",
-    "HexInz.Application", 
-    "HexInz.Ports",
+    "HexInz.Application.Contracts",
+    "HexInz.Application.Logic",
+    "HexInz.Infrastructure.Common",
     "HexInz.Infrastructure.Core",
     "HexInz.Infrastructure.EF.MySQL"
   ]
@@ -149,35 +152,34 @@ The application uses configuration to specify which modules to load:
 
 ## Technical Details
 
-### Assembly Loading Context
-- Uses custom `ModuleAssemblyLoadContext` for proper dependency resolution
-- Checks the default context first to share common dependencies like EF Core, ASP.NET Core
-- Handles unmanaged DLL resolution for native dependencies
-- Prevents loading duplicate assemblies into memory
-
-### Dependency Resolution
+### Modularity and Dynamic Loading
+- Custom `ModuleAssemblyLoadContext` in HexInz.ModuleManager enables robust dynamic module loading with proper isolation
 - Leverages `AssemblyDependencyResolver` to resolve dependencies from `.deps.json` files
 - Configures `CopyLocalLockFileAssemblies=true` to ensure all dependencies are available for plugin loading
-- Resolves dependencies in the correct order to avoid conflicts
+- Prevents loading duplicate assemblies into memory while sharing common dependencies
 
-### Logging System
-- Custom `InzConsole` class provides structured logging with color-coded outputs
-- Supports different levels of logging (headline, success, warning, error)
-- Designed for use where `ILogger` interfaces cannot be injected
-- Provides visual hierarchy for better debugging and monitoring
+### Separation of Concerns and Isolation
+- Complete separation between domain, application, and infrastructure layers
+- Modules are isolated from each other with proper dependency boundaries
+- Infrastructure adapters are loaded dynamically without compile-time dependencies
+- Each module maintains its own clear responsibility and scope
 
-### Data Context Abstraction
-- `IDataContext` interface abstracts data persistence operations
-- Supports both synchronous and asynchronous SaveChanges operations
-- Implementations are bound to specific database providers at runtime
-- Enables database-agnostic application logic
+### Hexagonal Architecture and DDD Implementation
+- Ports and adapters pattern ensures business logic remains independent of infrastructure
+- Domain layer is completely isolated from external concerns
+- Application layer orchestrates business workflows without infrastructure coupling
+- Clean architecture principles ensure maintainable and testable code
+
+### Module Management and Service Registration
+- Automatic service registration with dependency injection container via `IAmModule` implementations
+- Post-registration module initialization ensures proper lifecycle management
 
 ## Getting Started
 
 ### Prerequisites
 - .NET 9.0 SDK
 - MySQL for MySQL adapter support
-- SQL Server for SQL Server adapter support
+- PostgreSQL for PostgreSQL adapter support
 
 ### Building the Solution
 
@@ -187,9 +189,9 @@ The application uses configuration to specify which modules to load:
 4. Use dotnet user-secrets to save the database connection string securely
    ```shell
    # Run this once
-   dotent user-secrets init
-   # Note that you will have to update this command with the correct connection string based on your local setup  
-   dotent user-secrets set "Database:ConnectionString" "Host=host;Port=port;Database=db;Username=user;Password=pass"
+   dotnet user-secrets init
+   # Note that you will have to update this command with the correct connection string based on your local setup
+   dotnet user-secrets set "Database:ConnectionString" "Host=host;Port=port;Database=db;Username=user;Password=pass"
    # To confirm secret is added, run this command to list all the secrets
    dotnet user-secrets list
    ```
@@ -212,22 +214,6 @@ The application uses configuration to specify which modules to load:
 
 3. The application will start on `http://localhost:5029`
 
-### Configuration
-
-You can modify the modules loaded by editing `appsettings.json` in the `HexInz.WebAPI` project:
-
-```json
-{
-  "Modules": [
-    "HexInz.Domain",
-    "HexInz.Application",
-    "HexInz.Ports", 
-    "HexInz.Infrastructure.Core",
-    "HexInz.Infrastructure.EF.MySQL"  // Use "HexInz.Infrastructure.EF.SQLServer" for SQL Server
-  ]
-}
-```
-
 ## Development Guidelines
 
 ### Adding New Infrastructure Adapter
@@ -235,36 +221,33 @@ You can modify the modules loaded by editing `appsettings.json` in the `HexInz.W
 To create a new infrastructure adapter:
 
 1. Create a new project in the solution
-2. In the `.csproj` file of the new project, set the value of the tag `CopyLocalLockFileAssemblies` to true
-3. Add package references
-4. Create a module class that implements `IAmModule`
-5. Update the `Modules` configuration in `appsettings.json` with the new project's module name
+2. In the `.csproj` file of the new project, set the value of the tag `IsModuleProject` to true
+3. Add package references in `Directory.Packages.props` with the right versions
+4. Reference the required packages specified in `Directory.Packages.props` in the `.csproj` file of the new project
+5. Create a module class that implements `IAmModule` from `HexInz.ModuleManager`
+6. Update the `Modules` configuration in `appsettings.json` with the new project's module name
+7. Run `dotnet clean` then `dotnet build`
 
-
-### Creating Domain Modules
-- Place domain logic in `HexInz.Domain`
-- Keep business rules independent of infrastructure concerns
-- Use interfaces in `HexInz.Ports` to define dependencies
-- Ensure domain models holds no infrastructure-specific attributes
 
 ### Creating Application Services
-- Place application services in `HexInz.Application`
-- Define use cases and orchestrate domain logic
+- Place application contracts and ports in `HexInz.Application.Contracts`
+- Place business logic orchestration and application services in `HexInz.Application.Logic`
 - Use dependency injection to get domain services and ports
 - Maintain application-specific business rules
 
 ## Project Status
 
-This solution demonstrates a modular, plugin-based architecture with runtime module loading capabilities. Key features include:
+This solution demonstrates core architectural principles with a modular, plugin-based design. Key features include:
 
-- ✅ Hexagonal architecture with clear separation of concerns
-- ✅ Runtime module loading with dependency resolution
-- ✅ Multiple database provider support
-- ✅ Dynamic configuration of loaded modules
-- ✅ Proper assembly isolation and loading
-- ✅ Complete dependency injection integration
+- ✅ Hexagonal architecture with Domain-Driven Design (DDD) principles
+- ✅ Robust runtime module loading with complete isolation
+- ✅ Clear separation of concerns between all architectural layers
+- ✅ Dynamic configuration of loaded modules at runtime
+- ✅ Proper module lifecycle management and dependency injection integration
+- ✅ Complete infrastructure abstraction through ports and adapters pattern
+- ✅ Dedicated module management system for enhanced modularity
 
-The architecture is suitable for applications that need to load infrastructure adapters dynamically based on configuration, making the system highly flexible and maintainable.
+The architecture is suitable for applications that require maximum flexibility, maintainability, and clean separation between business logic and infrastructure concerns.
 
 ## Contributing
 

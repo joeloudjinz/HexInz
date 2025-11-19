@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 
-namespace HexInz.Infrastructure.Core.ModulesManager;
+namespace HexInz.ModuleManager;
 
 public static class ModuleManagerExtensions
 {

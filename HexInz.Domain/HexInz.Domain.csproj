@@ -5,6 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>HexInz.Core.Domain</RootNamespace>
+        <!-- Triggers the logic in Directory.Build.props -->
+        <IsModuleProject>true</IsModuleProject>
     </PropertyGroup>
 
 </Project>
