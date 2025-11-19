@@ -4,22 +4,15 @@ using HexInz.Core.Domain.Common;
 
 namespace HexInz.Core.Domain.Circulation.Entities;
 
-public class HoldableBook
+public class HoldableBook(BookId bookId)
 {
-    public BookId BookId { get; private set; }
-    public List<Hold> Holds { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    public BookId BookId { get; private set; } = bookId;
+    public List<Hold> Holds { get; private set; } = [];
+    public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; private set; }
 
     private readonly List<DomainEvent> _domainEvents = [];
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
-
-    public HoldableBook(BookId bookId)
-    {
-        BookId = bookId;
-        Holds = [];
-        CreatedAt = DateTime.UtcNow;
-    }
 
     public void PlaceHold(PatronId patronId)
     {

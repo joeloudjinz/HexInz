@@ -2,25 +2,16 @@ using HexInz.Core.Domain.Circulation.ValueObjects;
 
 namespace HexInz.Core.Domain.Circulation.Entities;
 
-public class Hold
+public class Hold(Guid id, PatronId patronId, DateTime placedAt)
 {
-    public Guid Id { get; private set; }
-    public PatronId PatronId { get; private set; }
-    public DateTime PlacedAt { get; private set; }
-    public DateTime? FulfilledAt { get; private set; }
-    public DateTime? CancelledAt { get; private set; }
+    public Guid Id { get; private set; } = id;
+    public PatronId PatronId { get; private set; } = patronId;
+    public DateTime PlacedAt { get; private set; } = placedAt;
+    public DateTime? FulfilledAt { get; private set; } = null;
+    public DateTime? CancelledAt { get; private set; } = null;
     public bool IsFulfilled => FulfilledAt.HasValue;
     public bool IsCancelled => CancelledAt.HasValue;
     public bool IsActive => !IsFulfilled && !IsCancelled;
-
-    public Hold(Guid id, PatronId patronId, DateTime placedAt)
-    {
-        Id = id;
-        PatronId = patronId;
-        PlacedAt = placedAt;
-        FulfilledAt = null;
-        CancelledAt = null;
-    }
 
     public void Fulfill()
     {

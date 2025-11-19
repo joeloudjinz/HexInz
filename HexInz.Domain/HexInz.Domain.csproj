@@ -9,4 +9,12 @@
         <IsModuleProject>true</IsModuleProject>
     </PropertyGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="HexInz.UnitTests.Domain"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HexInz.ModuleManager\HexInz.ModuleManager.csproj" />
+    </ItemGroup>
+
 </Project>

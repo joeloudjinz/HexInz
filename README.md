@@ -55,7 +55,8 @@ HexInz/
 │   └── Memberships/                  # Memberships domain components
 ├── HexInz.Infrastructure.Common/     # Common infrastructure contracts
 │   ├── HexInz.Infrastructure.Common.csproj # Common infrastructure project file
-│   └── Docs/                         # Documentation for common infrastructure
+│   └── Configurations/               # Infrastructure config options
+│       └── DatabaseConfigOptions.cs  # Database config options
 ├── HexInz.Infrastructure.Core/       # Core infrastructure framework (minimal implementation)
 │   ├── HexInz.Infrastructure.Core.csproj # Core infrastructure project file
 │   ├── Root.cs                       # Namespace root (empty file)
