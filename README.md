@@ -53,12 +53,6 @@ HexInz/
 │   ├── Common/                       # Common domain components
 │   ├── Inventory/                    # Inventory domain components
 │   └── Memberships/                  # Memberships domain components
-├── HexInz.Domain.UnitTests/          # Unit tests for domain layer
-│   ├── HexInz.Domain.UnitTests.csproj # Unit test project file
-│   ├── Circulation/                  # Unit tests for circulation
-│   ├── Common/                       # Unit tests for common components
-│   ├── Inventory/                    # Unit tests for inventory
-│   └── Memberships/                  # Unit tests for memberships
 ├── HexInz.Infrastructure.Common/     # Common infrastructure contracts
 │   ├── HexInz.Infrastructure.Common.csproj # Common infrastructure project file
 │   └── Docs/                         # Documentation for common infrastructure
@@ -86,6 +80,12 @@ HexInz/
 ├── HexInz.Runner/                    # Application orchestration and startup
 │   ├── HexInz.Runner.csproj          # Runner project file
 │   └── HexInzApp.cs                  # Application building and initialization
+├── HexInz.UnitTests.Domain/          # Unit tests for domain layer
+│   ├── HexInz.Domain.UnitTests.csproj # Unit test project file
+│   ├── Circulation/                  # Unit tests for circulation
+│   ├── Common/                       # Unit tests for common components
+│   ├── Inventory/                    # Unit tests for inventory
+│   └── Memberships/                  # Unit tests for memberships
 ├── HexInz.WebAPI/                    # Main web API entry point
 │   ├── HexInz.WebAPI.csproj          # Web API project file
 │   ├── Program.cs                    # Web API startup logic

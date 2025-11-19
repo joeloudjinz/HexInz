@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexInz.Runner", "HexInz.Run
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexInz.Application.Logic", "HexInz.Application.Logic\HexInz.Application.Logic.csproj", "{FD77F5EF-09B8-4B45-9AE3-BC2707731B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexInz.Domain.UnitTests", "HexInz.Domain.UnitTests\HexInz.Domain.UnitTests.csproj", "{A48C51AE-195B-44AF-A667-9D17D7FE49FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexInz.UnitTests.Domain", "HexInz.UnitTests.Domain\HexInz.UnitTests.Domain.csproj", "{A48C51AE-195B-44AF-A667-9D17D7FE49FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{3A696210-B646-4545-9D64-177C220932A9}"
 EndProject
