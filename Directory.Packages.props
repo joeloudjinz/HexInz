@@ -1,0 +1,34 @@
+<Project>
+    <!--  .NET Central Package Management.  -->
+    <!--  This file used to avoid the "Diamond Dependency" problem  -->
+    <!--  
+        Since everything loads into the Default context, version conflicts are fatal.
+            - Scenario: Module A uses Newtonsoft.Json v13. Module B uses Newtonsoft.Json v9.
+            - Result: The first one loaded wins. The second module will likely crash with MethodNotFoundException at runtime.
+            - Mitigation: You must enforce strict version alignment across all modules.
+    -->
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <!-- Define versions ONCE for the whole solution -->
+    <ItemGroup>
+        <!-- Core Dependencies -->
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0"/>
+        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+
+        <!-- Third Party Dependencies -->
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.0"/>
+        <PackageVersion Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0"/>
+
+        <!-- Test -->
+        <PackageVersion Include="coverlet.collector" Version="6.0.2"/>
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+        <PackageVersion Include="xunit" Version="2.9.2"/>
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2"/>
+        <PackageVersion Include="FluentAssertions" Version="8.8.0"/>
+    </ItemGroup>
+</Project>

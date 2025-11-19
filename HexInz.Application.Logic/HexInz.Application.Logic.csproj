@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>HexInz.Core.Application</RootNamespace>
+        <!-- Triggers the logic in Directory.Build.props -->
+        <IsModuleProject>true</IsModuleProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HexInz.ModuleManager\HexInz.ModuleManager.csproj" />
+    </ItemGroup>
+
+</Project>

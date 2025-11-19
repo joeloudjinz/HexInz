@@ -5,6 +5,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>HexInz.Core.Domain</RootNamespace>
+        <!-- Triggers the logic in Directory.Build.props -->
+        <IsModuleProject>true</IsModuleProject>
     </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="HexInz.UnitTests.Domain"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HexInz.ModuleManager\HexInz.ModuleManager.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-using HexInz.Infrastructure.Core.ModulesManager;
+using HexInz.ModuleManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,7 +12,17 @@ public static class HexInzApp
         serviceCollection.RegisterModules(configuration);
     }
 
+    public static void BuildInzApp(this IServiceCollection serviceCollection, IConfiguration configuration, IHostEnvironment environment)
+    {
+        serviceCollection.RegisterModules(configuration);
+    }
+
     public static void Init(IServiceProvider serviceProvider, IConfiguration configuration, IHostEnvironment environment)
+    {
+        serviceProvider.InitializeModules(configuration);
+    }
+
+    public static void InitInzApp(this IServiceProvider serviceProvider, IConfiguration configuration, IHostEnvironment environment)
     {
         serviceProvider.InitializeModules(configuration);
     }

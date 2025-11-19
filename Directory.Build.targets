@@ -1,0 +1,38 @@
+<Project>
+    <PropertyGroup Condition="'$(IsModuleProject)' == 'true'">
+        <!-- 
+            This property forces MSBuild to copy all assemblies from this project's dependency graph (including NuGet packages like Pomelo) into 
+            the output directory (e.g., bin/Debug/net9.0) on a normal build.
+            This ensures that when this module is loaded as a plugin, all its dependencies are present in the same directory, which is what 
+            the AssemblyDependencyResolver requires to function correctly.
+        -->
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+        <!-- Explicitly ensure lock file assemblies are copied -->
+        <GenerateDependencyFile>true</GenerateDependencyFile>
+    </PropertyGroup>
+
+    <!-- 
+      Define a Custom Target that runs after the build is finished.
+      It copies the output to: {SolutionRoot}/BuiltModules/{ProjectName}/
+    -->
+    <Target Name="DeployModuleToUnifiedFolder" AfterTargets="Build" Condition="'$(IsModuleProject)' == 'true'">
+        <PropertyGroup>
+            <!-- Calculate the destination path -->
+            <UnifiedModulePath>$(MSBuildThisFileDirectory)BuiltModules/$(MSBuildProjectName)/</UnifiedModulePath>
+        </PropertyGroup>
+
+        <ItemGroup>
+            <!-- Select all files in the build output directory -->
+            <ModuleFiles Include="$(OutputPath)**/*.*"/>
+        </ItemGroup>
+
+        <!-- Log a message to the console so you know it's working -->
+        <Message Text="[Module Deployment] Copying $(MSBuildProjectName) to $(UnifiedModulePath)" Importance="High"/>
+
+        <!-- Perform the copy -->
+        <Copy SourceFiles="@(ModuleFiles)"
+              DestinationFolder="$(UnifiedModulePath)%(RecursiveDir)"
+              SkipUnchangedFiles="true"/>
+    </Target>
+</Project>
